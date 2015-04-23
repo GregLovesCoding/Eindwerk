@@ -75,6 +75,8 @@ public class KinectSensor : MonoBehaviour, KinectInterface {
 	private IntPtr depthStreamHandle;
 	[HideInInspector]
 	private NuiTransformSmoothParameters smoothParameters = new NuiTransformSmoothParameters();
+
+    
 	
 	float KinectInterface.getSensorHeight() {
 		return sensorHeight;

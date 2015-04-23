@@ -3,6 +3,13 @@ using System.Collections;
 
 public class Spell : MonoBehaviour {
 
+    public int damage;
+    public string effect;
+    public int cooldown;
+    public int castTime;
+    public int Type;
+    public int effectTimer;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -12,4 +19,6 @@ public class Spell : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void OnCollisionEnter(Collision col) { }
 }

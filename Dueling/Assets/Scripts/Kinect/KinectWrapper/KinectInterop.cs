@@ -22,6 +22,8 @@ namespace Kinect {
 		
 		bool pollSkeleton();
 		NuiSkeletonFrame getSkeleton();
+
+        
 		
 		// Get all bone orientation based on skeletondata
 		// kinect Sdk 1.7.0, June 2013, Jason Added
@@ -499,11 +501,19 @@ namespace Kinect {
 		
 		[DllImportAttribute(@"C:\Windows\System32\Kinect10.dll", EntryPoint = "NuiImageStreamReleaseFrame")]
 	    public static extern int NuiImageStreamReleaseFrame(IntPtr phStreamHandle, IntPtr ppcImageFrame);
+
 		
 		// KK addition - setting image stream flags to enable near mode
 		[DllImportAttribute(@"C:\Windows\System32\Kinect10.dll", EntryPoint = "NuiImageStreamSetImageFrameFlags")]
 		public static extern int NuiImageStreamSetImageFrameFlags (IntPtr phStreamHandle, NuiImageStreamFlags dvImageFrameFlags);
 		// end of KK addition
+
+        /*
+         * kinect audio funcctions
+         */ 
+
+       // [DllImportAttribute(@"C:\Windows\System32\Kinect10.dll",EntryPoint = "AudioSource")]
+        
 	}
 	
 }
