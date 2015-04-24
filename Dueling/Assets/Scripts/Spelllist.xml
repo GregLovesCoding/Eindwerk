@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Spells>
+<Shield  Type="Defense">
+<Level1 Value="5" Cost="10">
+</Shield>
+<Freeze Type="Stun" >
+<Level1 Cost="20">
+</Freeze>
+<Heal Type="Heal">
+<Level1  Cost="50">
+</Heal>
+</Spells>
