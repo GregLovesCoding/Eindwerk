@@ -3,8 +3,8 @@ using System.Collections;
 using System.Threading;
 public class Character : MonoBehaviour {
 
-    public int health;
-    public int mana;
+    public int health=1;
+    public int mana=1;
     public int damage;
     public int defense;
     public int healthRegen=1;
@@ -33,6 +33,9 @@ public class Character : MonoBehaviour {
 
       GameObject spellObject=(GameObject) Instantiate(Spell,transform.position,transform.rotation);
       Vector3 Caster=transform.position;
+
+      spellObject.name = Spell.ToString();
+
       Vector3 Target;
 
       if (isPlayer) { 
@@ -47,7 +50,7 @@ public class Character : MonoBehaviour {
 
     void ChangeHealth(int newHealth) {
 
-        if (health <= 100 && health >=0) health+=newHealth;
+        if (health < 100 && health >=0) health+=newHealth;
     
     }
 
@@ -59,6 +62,10 @@ public class Character : MonoBehaviour {
 
     void ChangeStatus() { }
 
+    void OnGUI() {
+        GUI.Label(new Rect(10, 10, 100, 30), "Health:" + health);
+        GUI.Label(new Rect(10, 40, 100, 30), "Mana:" + mana);
 
+    }
 
 }

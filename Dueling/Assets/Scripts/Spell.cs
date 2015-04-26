@@ -3,16 +3,13 @@ using System.Collections;
 
 public class Spell : MonoBehaviour {
 
-    public int damage;
-    public string effect;
-    public int cooldown;
-    public int castTime;
-    public int Type;
-    public int effectTimer;
+    private int damage;
+    private float accuracy = 5;
+    private string name;
 
 	// Use this for initialization
 	void Start () {
-	
+        name = gameObject.name;
 	}
 	
 	// Update is called once per frame
@@ -22,5 +19,13 @@ public class Spell : MonoBehaviour {
         transform.position = pos;
 	}
 
-    void OnCollisionEnter(Collision col) { }
+    void OnCollisionEnter(Collision col) {
+
+        float hit = Random.Range(0,10);
+        if (hit < accuracy) {
+            col.gameObject.SendMessage("ChangeHealth",damage);
+        }
+
+    
+    }
 }
