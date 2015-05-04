@@ -8,7 +8,7 @@ public class GameControl : MonoBehaviour {
 
     public static GameControl control;
 
-    public float experiance;
+    public float experience;
     public int damage;
     public int defense;
     public int healthRegen;
@@ -35,7 +35,7 @@ public class GameControl : MonoBehaviour {
         FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
         PlayerData data = new PlayerData();
         //set local variables to data
-
+        
 
         bf.Serialize(file, data);
         file.Close();

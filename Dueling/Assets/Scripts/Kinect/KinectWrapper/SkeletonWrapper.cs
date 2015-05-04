@@ -66,7 +66,7 @@ public class SkeletonWrapper : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+       // Debug.Log(bonePos[0,1]);
 	}
 	
 	void LateUpdate () {
