@@ -2,9 +2,9 @@
 using System;
 using System.Collections;
 using System.Linq;
-using System.Speech;
-using System.Speech.Recognition;
-using System.Speech.AudioFormat;
+//using System.Speech;
+//using System.Speech.Recognition;
+//using System.Speech.AudioFormat;
 //using Microsoft.Speech;
 //using Microsoft.Speech.Recognition;
 //using Microsoft.Speech.AudioFormat;
@@ -31,7 +31,7 @@ public class VoiceInput : MonoBehaviour {
 	}
 
     void Input() {
-
+/*
         //SpeechRecognitionEngine sre = new SpeechRecognitionEngine();
         SpeechRecognizer sre = new SpeechRecognizer();
 
@@ -55,7 +55,7 @@ public class VoiceInput : MonoBehaviour {
         catch (Exception e) {
             Debug.Log(e);
         }
- 
+ */
         
         //Set events for recognizing, hypothesising and rejecting speech
 

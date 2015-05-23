@@ -29,7 +29,7 @@ public class SpellProjectile : MonoBehaviour {
             }*/
             col.gameObject.SendMessage("TakeHit", damage);
             Destroy(gameObject);
-
+              
         }
 	}
 

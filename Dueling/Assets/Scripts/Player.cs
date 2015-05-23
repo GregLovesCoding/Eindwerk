@@ -4,8 +4,8 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
     public GameObject Spell;
-    private bool recognizeSpell;
-    private bool recognizeGesture;
+    private bool spellRecognized;
+    private bool gestureRecognized;
     private string spellName;
     private float castStartTimer;
     public float castWaitMax;
@@ -17,30 +17,27 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0)) {
-            recognizeSpell = true;
-          recognizeGesture = true;
-        
-        }
+
 
         //if the gesture and name of the spell are correct, the spell is cast. otherwise, the cast fails.
-        if (recognizeGesture || recognizeSpell) {
+        if (gestureRecognized || spellRecognized)
+        {
             castStartTimer += Time.deltaTime;
 
             if (castStartTimer <= castWaitMax)
             {
-                if (recognizeGesture && recognizeSpell)
+                if (gestureRecognized && spellRecognized)
                 {
                     gameObject.SendMessage("Cast", Spell);
                     castStartTimer = 0;
-                    recognizeSpell = false;
-                    recognizeGesture = false;
+                    spellRecognized = false;
+                    gestureRecognized = false;
                 }
             }
             else {
                 gameObject.SendMessage("FailCast");
-                recognizeSpell = false;
-                recognizeGesture = false;
+                spellRecognized = false;
+                gestureRecognized = false;
                 castStartTimer = 0;
             }
 
@@ -48,6 +45,12 @@ public class Player : MonoBehaviour {
  
       
 	}
+
+    void RecognizeGesture(int gesture) {
+        gestureRecognized = true;
+        spellRecognized = true;
+        
+    }
 
     
 }

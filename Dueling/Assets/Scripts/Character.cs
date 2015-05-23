@@ -14,6 +14,7 @@ public class Character : MonoBehaviour
         public int cooldown;
         public int castTime;
         public int accuracy;
+        public bool ready;
      
       
 

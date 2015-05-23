@@ -99,6 +99,15 @@ public class KinectGestureController : MonoBehaviour {
 				}
 			}
 		}
+
+      /*  Debug.Log(_bones[10].y + "," + _bones[3].y);
+        if (_bones[10].y > _bones[3].y) {
+            
+            GameObject playerCharacter = GameObject.FindGameObjectWithTag("Player");
+            playerCharacter.SendMessage("RecognizeGesture",0);
+        
+        }*/
+        
 	}
 	}
 

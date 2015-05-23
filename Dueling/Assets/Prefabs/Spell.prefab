@@ -44,15 +44,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 116974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ebb5ea34c2ecc246890e037255dc221, type: 3}
+  m_Script: {fileID: 11500000, guid: 767023d0cfdd0ab4fbc2219af1410c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  effect: 
-  cooldown: 0
-  castTime: 0
-  Type: 0
-  effectTimer: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

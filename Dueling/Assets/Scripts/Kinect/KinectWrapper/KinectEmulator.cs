@@ -132,4 +132,5 @@ public class KinectEmulator : MonoBehaviour, KinectInterface {
 	short[] KinectInterface.getDepth() {
 		return null;
 	}
+
 }
