@@ -48,6 +48,7 @@ public class KinectEmulator : MonoBehaviour, KinectInterface {
 	
 	// Use this for initialization
 	void Start () {
+       
 		LoadPlaybackFile(inputFile);
 	}
 	

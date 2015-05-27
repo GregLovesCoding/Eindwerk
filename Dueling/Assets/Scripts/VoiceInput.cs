@@ -2,73 +2,75 @@
 using System;
 using System.Collections;
 using System.Linq;
-//using System.Speech;
-//using System.Speech.Recognition;
-//using System.Speech.AudioFormat;
-//using Microsoft.Speech;
-//using Microsoft.Speech.Recognition;
-//using Microsoft.Speech.AudioFormat;
-
-
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
 
 
 public class VoiceInput : MonoBehaviour {
 
 
-    
-    
-    
-
-	// Use this for initialization
-	void Start () {
-        //InitializeKinect();
-       Input();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    void Input() {
-/*
-        //SpeechRecognitionEngine sre = new SpeechRecognitionEngine();
-        SpeechRecognizer sre = new SpeechRecognizer();
-
-     //set input here
-      //  sre.SetInputToDefaultAudioDevice();
-
-        //setup the grammar
-        Choices grammar = new Choices();
-        grammar.Add(new string[] { "red", "green", "blue" });
-
-        GrammarBuilder gb = new GrammarBuilder();
-        gb.Append(grammar);
+    private Socket socket;
+    private IPHostEntry hostEntry;
+    private IPEndPoint endPoint;
+    private IPEndPoint sender;
+    private EndPoint senderRemote;
+    private byte[] msg;
+    private string message="";
 
 
-        //set up the grammar builder
-        Grammar g = new Grammar(gb);
-    
-        try { 
-        //    sre.LoadGrammar(g); 
-        }
-        catch (Exception e) {
-            Debug.Log(e);
-        }
- */
-        
-        //Set events for recognizing, hypothesising and rejecting speech
 
-        /*sre.SpeechRecognized += SreSpeechRecognized;
-        sre.SpeechHypothesized += SreSpeechHypothesized;
-        sre.SpeechRecognitionRejected += SreSpeechRecognitionRejected;*/
+    // Use this for initialization
+    void Start()
+    {
+       
+        socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+        socket.EnableBroadcast = true;
 
-      // sre.Recognize();
-      
+        hostEntry = Dns.Resolve(Dns.GetHostName());
+        endPoint = new IPEndPoint(hostEntry.AddressList[0], 11000);
+        socket.Bind(endPoint);
+        CheckMessage();
+
     }
 
+    // Update is called once per frame
+    void Update()
+    {
 
- 
+        if (!message.Equals(""))
+        {
+            gameObject.SendMessage("RecognizeSpell", message.Remove(0, 5));
+            message = "";
+        }
+
+
+    }
+
+    void CheckMessage()
+    {
+        sender = new IPEndPoint(IPAddress.Any, 0);
+        senderRemote = (EndPoint)sender;
+        msg = new byte[256];
+
+        Thread thread = new Thread(new ThreadStart(ReceiveMessage));
+        thread.Start();
+    }
+
+    void ReceiveMessage()
+    {
+        socket.ReceiveFrom(msg, ref senderRemote);
+        message = System.Text.Encoding.UTF8.GetString(msg);
+
+        Debug.Log(message.Remove(0, 5));
+        ReceiveMessage();
+
+    }
+
+    void OnApplicationQuit()
+    {
+        socket.Close();
+    }
 
 
      

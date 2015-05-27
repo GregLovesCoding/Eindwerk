@@ -85,6 +85,7 @@ public class Character : MonoBehaviour
         }
         if (canCast)
         {
+            Debug.Log("Shots fired!");
             GameObject spellObject = (GameObject)Instantiate(Spell, transform.position, transform.rotation);
             Vector3 Caster = transform.position;
 
@@ -95,7 +96,7 @@ public class Character : MonoBehaviour
             if (isPlayer)
             {
 
-
+               
             }
         }
         else { 
