@@ -10,7 +10,7 @@ public class DeviceOrEmulator : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-        System.Diagnostics.Process.Start("VoiceInput.exe");
+      
 		if(useEmulator){
 			emulator.enabled = true;
 		}

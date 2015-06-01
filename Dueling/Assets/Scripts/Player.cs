@@ -4,15 +4,17 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 
-    public GameObject[] Spell;
-    private bool spellRecognized;
+ 
+    private bool spellRecognized=false;
     private bool gestureRecognized=false;
-    private string spellName;
+    private string spellName="";
     private float castStartTimer;
     public float castWaitMax;
+
     // Use this for initialization
     void Start()
     {
+   
         spellName = null;
         castStartTimer = 0;
     }
@@ -20,9 +22,14 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RecognizeGesture();
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log("Gesture");
+            gestureRecognized = true;
+        }
 
-
+        
+ 
         //if the gesture and name of the spell are correct, the spell is cast. otherwise, the cast fails.
         if (gestureRecognized || spellRecognized)
         {
@@ -32,10 +39,12 @@ public class Player : MonoBehaviour
             {
                 if (gestureRecognized && spellRecognized)
                 {
-                    gameObject.SendMessage("Cast", Spell[0]);
+                    gameObject.SendMessage("Cast",spellName);
                     castStartTimer = 0;
                     spellRecognized = false;
                     gestureRecognized = false;
+                    spellName = "";
+                    Debug.Log("initiate cast succeed");
                 }
             }
             else
@@ -54,17 +63,19 @@ public class Player : MonoBehaviour
     void RecognizeGesture()
     {
         int key = GetKey();
-        if (key != 0) gestureRecognized = true;
-       // else gestureRecognized = false;
-        Debug.Log(key);
+        if (key != 0)
+        {
+            gestureRecognized = true;
+            Debug.Log(key);
+        }
 
     }
 
     void RecognizeSpell(string spell)
     {
         if (!spellRecognized) spellName = spell;
-        Debug.Log(spell+" recognized");
         spellRecognized = true;
+        gestureRecognized = true;
     }
 
     //temporary function to check gestures
@@ -88,7 +99,7 @@ public class Player : MonoBehaviour
         {
             return 4;
         }
-
+  
         return 0;
     }
 
