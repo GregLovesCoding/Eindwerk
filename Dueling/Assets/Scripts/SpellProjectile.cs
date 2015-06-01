@@ -13,7 +13,7 @@ public class SpellProjectile : MonoBehaviour {
         void Update()
         {
             Vector3 pos = transform.position;
-            pos.x += 1;
+            pos.x += 0.1f;
             transform.position = pos;
         }
 
@@ -27,9 +27,14 @@ public class SpellProjectile : MonoBehaviour {
                 col.gameObject.SendMessage("TakeHit", damage);
 
             }*/
-            col.gameObject.SendMessage("TakeHit", damage);
-            Destroy(gameObject);
+               if(col.gameObject.tag.Equals("Character"))
+               {
+                   col.gameObject.SendMessage("TakeHit", damage);
+                   Debug.Log("Hit");
+                   Destroy(gameObject);
               
+               }
+         
         }
 	}
 

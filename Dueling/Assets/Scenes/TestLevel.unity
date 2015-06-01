@@ -351,6 +351,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100302, guid: c498ab023665e124f9c86515bcdd620b, type: 2}
+      propertyPath: m_TagString
+      value: Character
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c498ab023665e124f9c86515bcdd620b, type: 2}
   m_IsPrefabParent: 0
@@ -578,6 +582,11 @@ MonoBehaviour:
   accuracy: 0
   critChance: 0
   isPlayer: 1
+  spellList:
+  - {fileID: 116974, guid: d3a15bbcafb5ec14b95a1e35c1f58e25, type: 2}
+  - {fileID: 116974, guid: d3a15bbcafb5ec14b95a1e35c1f58e25, type: 2}
+  - {fileID: 116974, guid: d3a15bbcafb5ec14b95a1e35c1f58e25, type: 2}
+  - {fileID: 116974, guid: d3a15bbcafb5ec14b95a1e35c1f58e25, type: 2}
 --- !u!114 &1322244359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +652,10 @@ Prefab:
     - target: {fileID: 100302, guid: c498ab023665e124f9c86515bcdd620b, type: 2}
       propertyPath: m_Name
       value: Character 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100302, guid: c498ab023665e124f9c86515bcdd620b, type: 2}
+      propertyPath: m_TagString
+      value: Character
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c498ab023665e124f9c86515bcdd620b, type: 2}
@@ -760,6 +773,20 @@ MonoBehaviour:
   accuracy: 0
   critChance: 0
   isPlayer: 0
+  spellList: []
+--- !u!136 &1590760739
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1590760736}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 16
+  m_Direction: 1
+  m_Center: {x: 0, y: 8, z: 0}
 --- !u!1 &1649923350
 GameObject:
   m_ObjectHideFlags: 0

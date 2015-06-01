@@ -16,12 +16,13 @@ public class Character : MonoBehaviour
         private int accuracy;
         private bool ready;
         private float cooldownProgress;
+        private float critChance;
 
 
 
 
 
-        public Spell(string name, int type, int value, int cost, int cooldown, int castTime, int accuracy)
+        public Spell(string name, int type, int value, int cost, int cooldown, int castTime, int accuracy,float critChance)
         {
 
             this.name = name;
@@ -31,6 +32,7 @@ public class Character : MonoBehaviour
             this.cooldown = cooldown;
             this.castTime = castTime;
             this.accuracy = accuracy;
+            this.critChance = critChance;
 
         }
 
@@ -40,7 +42,7 @@ public class Character : MonoBehaviour
 
         }
 
-        public int GetType()
+        public int GetSpellType()
         {
 
             return type;
@@ -74,6 +76,11 @@ public class Character : MonoBehaviour
             return accuracy;
         }
 
+        public float GetCritChance() 
+        {
+            return critChance;
+        }
+
 
     }
 
@@ -81,7 +88,7 @@ public class Character : MonoBehaviour
     public int health = 100;
     public int mana = 100;
     public int damage;
-    public int defense;
+    public int defense=0;
     public int healthRegen = 1;
     public int manaRegen = 1;
     public int accuracy;
@@ -99,6 +106,15 @@ public class Character : MonoBehaviour
 
     private GameObject uiObj;
 
+    public GameObject[] spellList;
+    private GameObject nextSpell;
+    private int nextSpellMana;
+    private int nextSpellDamage;
+    private bool interrupCast;
+    private int nextSpellType;
+    private int nextSpellshield;
+    private int nextSpellHeal;
+
 
     // Use this for initialization
     void Start()
@@ -106,10 +122,12 @@ public class Character : MonoBehaviour
        uiObj = GameObject.Find("Canvas");
 
         spells = new Spell[4];
-        spells[0] = new Spell("Fire", 1, damage * 2, 20, 5, 1, 1);
-        spells[1] = new Spell("Shield", 2, damage * 2, 20, 1, 1, 1);
-        spells[2] = new Spell("Stun", 3, damage * 2, 20, 1, 1, 1);
-        spells[3] = new Spell("Heal", 4, damage * 2, 20, 1, 1, 1);
+        spells[0] = new Spell("Fire", 1, damage * 2, 20, 5, 1, 1,0.2f);
+        spells[1] = new Spell("Shield", 2, damage * 2, 20, 1, 1, 1,0.0f);
+        spells[2] = new Spell("Stun", 3, damage * 2, 20, 1, 1, 1,1.0f);
+        spells[3] = new Spell("Heal", 4, damage * 2, 20, 1, 1, 1,0.0f);
+
+        nextSpell = null;
 
     }
 
@@ -136,11 +154,43 @@ public class Character : MonoBehaviour
         if (startCast)
         {
             castTimer += Time.deltaTime;
-            if (castTimer >= castCooldown)
+            if (castTimer >= castCooldown && mana>nextSpellMana)
             {
                 Debug.Log("Shots fired!");
                 castTimer = 0;
                 castCooldown = 0;
+       
+                startCast = false;
+                ChangeMana(-nextSpellMana);
+
+             switch(nextSpellType)
+             {
+                 case 1:
+
+                     GameObject spellObject = (GameObject)Instantiate(nextSpell, transform.position, transform.rotation);
+                     break;
+                 case 2:
+                     defense += nextSpellshield;
+                    break;
+                 case 3:
+                     break;
+                 case 4:
+                     ChangeHealth(nextSpellHeal);
+                     break;
+                 default: break;
+
+             }
+                
+               
+               
+            }
+            else if(interrupCast)
+            {
+                startCast = false;
+                ChangeMana(-nextSpellMana);
+                castTimer = 0;
+                castCooldown = 0;
+
             }
 
         }
@@ -159,7 +209,9 @@ public class Character : MonoBehaviour
 
                 startCast = true;
                 castCooldown = spells[i].GetCooldown();
-                ChangeMana(-spells[i].GetCost());
+                nextSpellMana=spells[i].GetCost();
+                nextSpell = spellList[i];
+                nextSpellType = spells[i].GetSpellType();
                 Debug.Log("start casting");
             }
             else {
@@ -207,6 +259,11 @@ public class Character : MonoBehaviour
 
     void ChangeHealth(int newHealth)
     {
+        if (newHealth < 0)
+        {
+            newHealth -= (newHealth * defense / 100);
+
+        }
         int sum = health + newHealth;
 
         if (sum > 100)
