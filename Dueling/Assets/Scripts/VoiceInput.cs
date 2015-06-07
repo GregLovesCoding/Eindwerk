@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -43,7 +44,8 @@ public class VoiceInput : MonoBehaviour {
         hostEntry = Dns.Resolve(Dns.GetHostName());
         endPoint = new IPEndPoint(hostEntry.AddressList[0], 11000);
         socket.Bind(endPoint);
-        CheckMessage();
+        //CheckMessage();
+        CheckMessageTCP();
 
     }
 
@@ -87,10 +89,35 @@ public class VoiceInput : MonoBehaviour {
     }
 
     void CheckMessageTCP() {
-        TcpListener listener = new TcpListener(GetLocalIP(), 11000);
-        listener.Start();
-        Socket soc = listener.AcceptSocket(); // blocks
-        stream = new NetworkStream(soc);
+        try
+        {
+
+           
+            TcpListener myList = new TcpListener(GetLocalIP(), 8001);
+
+            //start listening
+            myList.Start();
+
+            Socket socket = myList.AcceptSocket();
+
+            byte[] msg = new byte[100];
+
+            //receive message
+            int k = socket.Receive(msg);
+            for (int i = 0; i < k; i++)
+                Console.Write(Convert.ToChar(msg[i]));
+
+            ASCIIEncoding asen = new ASCIIEncoding();
+            socket.Send(asen.GetBytes("The string was recieved by the server."));
+            Console.WriteLine("\nSent Acknowledgement");
+            /* clean up */
+            socket.Close();
+            myList.Stop();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error..... " + e.StackTrace);
+        }
   }   
     
     
