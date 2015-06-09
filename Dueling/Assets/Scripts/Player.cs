@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
  
     private bool spellRecognized=false;
     private bool gestureRecognized=false;
+
     private string spellName="";
     private float castStartTimer;
     public float castWaitMax;
@@ -22,16 +23,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Debug.Log("Gesture");
-            gestureRecognized = true;
-        }
+  
 
         
  
         //if the gesture and name of the spell are correct, the spell is cast. otherwise, the cast fails.
-        if (gestureRecognized || spellRecognized)
+        if ( gestureRecognized || spellRecognized)
         {
             castStartTimer += Time.deltaTime;
 
@@ -44,7 +41,7 @@ public class Player : MonoBehaviour
                     spellRecognized = false;
                     gestureRecognized = false;
                     spellName = "";
-                    Debug.Log("initiate cast succeed");
+                    Debug.Log("initiate cast succeeded");
                 }
             }
             else
@@ -62,45 +59,19 @@ public class Player : MonoBehaviour
 
     void RecognizeGesture()
     {
-        int key = GetKey();
-        if (key != 0)
-        {
+   
             gestureRecognized = true;
-            Debug.Log(key);
-        }
 
+         Debug.Log("Gesture");
     }
 
     void RecognizeSpell(string spell)
     {
         if (!spellRecognized) spellName = spell;
         spellRecognized = true;
-        gestureRecognized = true;
+       
     }
 
-    //temporary function to check gestures
 
-    int GetKey()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            return 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        { 
-            return 2;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            return 3;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            return 4;
-        }
-  
-        return 0;
-    }
 
 }

@@ -129,7 +129,6 @@ public class VoiceInput : MonoBehaviour {
 
         socket.ReceiveFrom(msg, ref senderRemote);
         message = System.Text.Encoding.UTF8.GetString(msg);
-
         Debug.Log(message.Remove(0, 5));
         ReceiveMessage();
 

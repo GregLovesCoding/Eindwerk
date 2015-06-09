@@ -221,29 +221,7 @@ public class Character : MonoBehaviour
 
         }
        
-     /*   if (canCast)
-        {
-            Debug.Log("Shots fired!");
 
-          
-         //   GameObject spellObject = (GameObject)Instantiate(Spell, transform.position, transform.rotation);
-         //   Vector3 Caster = transform.position;
-
-         //   spellObject.name = Spell.ToString();
-
-         //   Vector3 Target;
-
-            if (isPlayer)
-            {
-
-
-            }
-        }
-        else
-        {
-            TakeHit(damage);
-        }
-        */
 
 
 
@@ -313,7 +291,7 @@ public class Character : MonoBehaviour
         Debug.Log("cast failed");
     }
 
-
+    void SetInterrupt() { }
     void OnGUI()
     {
         int pos;
